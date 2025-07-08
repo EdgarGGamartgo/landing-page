@@ -34,6 +34,9 @@ RUN php artisan key:generate
 # Clear cached config so runtime env vars can load
 RUN php artisan config:clear
 
+# Delete any existing cached config file
+RUN rm -f bootstrap/cache/config.php
+
 # Remove .env so Render's runtime env vars take over
 RUN rm .env
 

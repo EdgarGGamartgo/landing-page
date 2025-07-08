@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Remove config cache file if it exists
+rm -f bootstrap/cache/config.php
+
 php artisan config:clear
 
 php artisan migrate --force
