@@ -22,7 +22,7 @@ WORKDIR /var/www/html
 # Copy app files
 COPY . .
 
-# Generate .env file
+# Generate .env temporarily for build
 RUN cp .env.example .env
 
 # Install PHP dependencies
@@ -30,6 +30,12 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Generate app key
 RUN php artisan key:generate
+
+# Clear cached config so runtime env vars can load
+RUN php artisan config:clear
+
+# Remove .env so Render's runtime env vars take over
+RUN rm .env
 
 # Set permissions
 RUN chmod -R 755 storage
