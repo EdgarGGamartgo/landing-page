@@ -22,6 +22,9 @@ WORKDIR /var/www/html
 # Copy app files
 COPY . .
 
+# Generate .env file
+RUN cp .env.example .env
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
@@ -34,12 +37,8 @@ RUN chmod -R 755 bootstrap/cache
 
 # Copy entrypoint script
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# Make it executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Expose port for Laravel dev server
 EXPOSE 8000
 
-# Run the entrypoint script on container start
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
