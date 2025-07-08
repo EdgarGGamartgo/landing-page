@@ -28,9 +28,6 @@ RUN cp .env.example .env
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Generate app key
-RUN php artisan key:generate
-
 # Clear cached config so runtime env vars can load
 RUN php artisan config:clear
 
