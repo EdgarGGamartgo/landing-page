@@ -11,7 +11,7 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_URL
-        value: https://laravel-landing.onrender.com
+        value: https://laravel-landing-55re.onrender.com
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
