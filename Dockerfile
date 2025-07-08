@@ -16,8 +16,10 @@ RUN docker-php-ext-install pdo pdo_pgsql zip
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy app files
+# Set working directory
 WORKDIR /var/www/html
+
+# Copy app files
 COPY . .
 
 # Install PHP dependencies
@@ -30,8 +32,14 @@ RUN php artisan key:generate
 RUN chmod -R 755 storage
 RUN chmod -R 755 bootstrap/cache
 
-# Expose port
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make it executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Expose port for Laravel dev server
 EXPOSE 8000
 
-# Run Laravel dev server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Run the entrypoint script on container start
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
