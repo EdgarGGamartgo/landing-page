@@ -11,7 +11,8 @@
         <p style="color: green;">{{ session('success') }}</p>
     @endif
 
-    <form method="POST" action="{{ route('landing.store') }}">
+    {{-- Return to <form method="POST" action="{{ route('landing.store') }}"> if you have a domain to use --}}
+    <form method="POST" action="http://64.23.175.219/">
         @csrf
         <input type="email" name="email" placeholder="Enter your email" required>
         <button type="submit">Subscribe</button>
